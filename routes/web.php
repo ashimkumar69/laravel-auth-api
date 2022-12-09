@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    Artisan::call('optimize:clear');
     return view('welcome');
 });
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix("auth")->controller(AuthController::class)->group(function () {
+    Route::post("/login", 'login')->middleware(['throttle:6,1']);
+    Route::post("/logout", 'logout')->middleware(['auth:sanctum']);
+});
+
+Route::middleware('auth:sanctum')->controller(UserController::class)->group(function () {
+    Route::get("/user", 'index');
 });
