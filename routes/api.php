@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("auth")->controller(AuthController::class)->group(function () {
     Route::post("/login", 'login')->middleware(['throttle:6,1']);
     Route::post("/logout", 'logout')->middleware(['auth:sanctum']);
+    Route::post('/forgot-password', 'forgotPassword');
+    Route::post('/reset-password', 'resetPassword');
 });
 
-Route::middleware('auth:sanctum')->controller(UserController::class)->group(function () {
+Route::prefix("admin")->middleware('auth:sanctum')->controller(UserController::class)->group(function () {
     Route::get("/user", 'index');
 });
