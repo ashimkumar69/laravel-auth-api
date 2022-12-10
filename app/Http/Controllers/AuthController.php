@@ -112,7 +112,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            abort(Response::HTTP_UNPROCESSABLE_ENTITY, $validator->first());
+            abort(Response::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
         }
 
         $credentials = $validator->validated();
@@ -155,7 +155,7 @@ class AuthController extends Controller
         });
 
         return response()->json([
-            'message' => "Your password reset successfully"
+            'message' => "Your password reset successful"
         ], Response::HTTP_OK);
     }
 }
